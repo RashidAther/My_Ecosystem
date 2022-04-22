@@ -25,9 +25,11 @@ nano .profile
 
 eval `ssh-agent` ssh-add /home/ubuntu/.ssh/abc.pem
 
+source .profile
+
 -----**** Set swappiness ****-----
 
-sudo sysctl vm.swappiness=0
+sudo sysctl vm.swappiness=1
 echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
 
 -----**** Download zookeeper and kafka ****-----
@@ -56,7 +58,7 @@ source .bashrc
 -----**** zookeeper quickstart ****-----
 
 zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties
-ctrl+C
+ctrl+C to exit
 
 -----**** Testing zookeeper install ****-----
 
