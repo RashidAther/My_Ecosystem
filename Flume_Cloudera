@@ -2,7 +2,7 @@
 	Flume Tutorial
 ******************************
 
-
+Start flume on x Master node
 * Install service flume on Cloudera and configure agent on CM host
 
 * In CM Goto -> Flume -> Configuration 
@@ -56,14 +56,25 @@ MyAgent.channels.MemChannel.transactionCapacity = 100
 
 
 ----**** Create HDFS directory for flume sink ****-----
-
+Conect to any worker node
+su hdfs
 hdfs dfs -mkdir /user/flume/
 hdfs dfs -chown -R flume:flume /user/flume
 hdfs dfs -chmod -R 770 /user/flume
 
 ----**** Start the agent ****-----
+Connect to x Master node where flume is present
+cd /opt/cloudera/parcels : ls -- check the parcel name
 
-sudo /opt/cloudera/parcels/CDH-5.13.1-1.cdh5.13.1.p0.2/etc/init.d/flume-ng-agent status
+sudo /opt/cloudera/parcels/CDH-6.3.3-1.cdh6.3.3.p0.1796617/etc/init.d/flume-ng-agent status
+Flume NG agent is not running
 
-sudo /opt/cloudera/parcels/CDH-5.13.1-1.cdh5.13.1.p0.2/etc/init.d/flume-ng-agent start
+sudo /opt/cloudera/parcels/CDH-6.3.3-1.cdh6.3.3.p0.1796617/etc/init.d/flume-ng-agent start
+Starting Flume NG agent daemon
 
+sudo /opt/cloudera/parcels/CDH-6.3.3-1.cdh6.3.3.p0.1796617/etc/init.d/flume-ng-agent status
+Flume NG agent is running
+
+------***Check the Streaming data***-------
+Check on web UI -> Hdfs -> filebrowser -> /user/flume
+On worker node terminal cd /user/flume
