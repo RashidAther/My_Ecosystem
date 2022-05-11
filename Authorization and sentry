@@ -16,7 +16,10 @@
 
 
 ## On terminal
-
+sudo addgroup dev
+sudo addgroup tester
+sudo adduser usera
+sudo adduser userc
 hdfs dfs -mkdir -p /data/userc
 hdfs dfs -chown userc:dev /data/userc
 hdfs dfs -ls /data
@@ -26,6 +29,7 @@ hdfs dfs -getfacl /data/userc
 hdfs dfs -setfacl -m user:usera:r-x /data/userc
 hdfs dfs -setfacl -m group:testers:rwx /data/userc
 hdfs dfs -getfacl /data/userc
+hdfs dfs -ls /data
 
 hdfs dfs -chmod 750 /data/userc
 hdfs dfs -getfacl /data/userc
@@ -53,8 +57,8 @@ hdfs dfs -setfacl [-R] [-b|-k -m|-x <acl_spec> <path>]|[--set <acl_spec> <path>]
 ## Enabling sticky bits
 
 hdfs dfs -chmod +t /data
-hdfs dfs -ls / | grep data
-
+hdfs dfs -ls /
+hdfs dfs -chmod -t /data
 
 
 
