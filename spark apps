@@ -1,7 +1,17 @@
 ############## Spark on Cloudera #############
 
+Add spark on cluster
 
+Download poem.text on linux system
+scp -i rashidlinuxkey.pem poem.txt ubuntu@ip_of_node:~/
+mv poem.txt poems
+sudo cp poems /var/lib/hadoop-hdfs
 
+sudo nano /etc/passwd
+sudo passwd hdfs
+sudo adduser hdfs sudo
+su hdfs
+hdfs dfs -mkdir /input
 
 --*** Testing Spark ***---
 
