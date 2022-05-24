@@ -21,15 +21,15 @@ cd /opt/cloudera/parcels/CDH/lib/spark/bin/
 
 spark-shell
 
-val myfile = sc.textFile("hdfs://ip-10-0-1-112.ec2.internal:8020/input/")
+val myfile = sc.textFile("hdfs://ip-172-31-21-111.ec2.internal:8020/input/")
 val counts = myfile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
-counts.saveAsTextFile("hdfs://ip-10-0-1-112.ec2.internal:8020/out1/")
+counts.saveAsTextFile("hdfs://ip-172-31-21-111.ec2.internal:8020/out1/")
 
 pyspark
 
-myfile = sc.textFile("hdfs://ip-10-0-1-112.ec2.internal:8020/input/")
+myfile = sc.textFile("hdfs://ip-172-31-21-111.ec2.internal:8020/input/")
 counts = myfile.flatMap(lambda line: line.split(" ")).map(lambda word: (word, 1)).reduceByKey(lambda v1,v2: v1 + v2)
-counts.saveAsTextFile("hdfs://ip-10-0-1-112.ec2.internal:8020/out2/")
+counts.saveAsTextFile("hdfs://ip-172-31-21-111.ec2.internal:8020/out2/")
 
 
 spark-submit --class org.apache.spark.examples.SparkPi --master yarn \
@@ -45,8 +45,6 @@ spark-submit --class org.apache.spark.examples.SparkPi --master yarn \
 In spark - search
 
 spark.dynamicAllocation.enabled	
-
-
 
 
 
