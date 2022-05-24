@@ -32,7 +32,7 @@ counts = myfile.flatMap(lambda line: line.split(" ")).map(lambda word: (word, 1)
 counts.saveAsTextFile("hdfs://ip-172-31-21-111.ec2.internal:8020/out2/")
 
 
-spark-submit --class org.apache.spark.examples.SparkPi --master yarn \
+$ spark-submit --class org.apache.spark.examples.SparkPi --master yarn \
 --deploy-mode client /opt/cloudera/parcels/CDH/lib/spark/examples/jars/spark-examples_2.11-2.4.0-cdh6.3.3.jar 10
 
 
@@ -45,7 +45,7 @@ spark-submit --class org.apache.spark.examples.SparkPi --master yarn \
 In spark - search
 
 spark.dynamicAllocation.enabled	
-
+Enabled by default
 
 
 
@@ -58,10 +58,12 @@ spark.dynamicAllocation.enabled
 ## Check whether Hive on spark is enabled
 
 In Hive - search - Spark On YARN Service
+select Spark
 
 ## Check the default execution engine
 
 In Hive - search - Default Execution Engine
+Mapreduce
 
 ## Connect to Hue
 
@@ -69,7 +71,7 @@ In Hive - search - Default Execution Engine
 
 set hive.execution.engine;
 
---> Set it to spark
+--> Set it to spark for query
 
 set hive.execution.engine=spark;
 
@@ -81,7 +83,7 @@ set hive.execution.engine;
 
 create table mytable (a int,b string);
 
-insert into table mytable (1,'abcd');
+insert into table mytable values (1,'abcd');
 
 (check the info logs for spark details )
 
