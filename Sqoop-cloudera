@@ -70,31 +70,44 @@ sqoop list-tables --connect jdbc:mysql://ip-172-31-84-71.ec2.internal:3306/class
 
 -----*** Sqoop Import ***-----
 
+su hdfs@ for all cmd:
+
+Import to hdfs
 sqoop import --connect jdbc:mysql://<database_dns>:3306/classicmodels --username sqoopuser --password password --table employees -m 1
 
 sqoop import --connect jdbc:mysql://<database_dns>:3306/classicmodels --username sqoopuser --password password --table employees -m 1 --target-dir /user/hdfs/new/
 
+hdfs dfs -ls -R /user/hdfs
+can see /new/part files dir created
+hdfs dfs -cat /user/hdfs/new/part-m-00000
+will open the part file
+
+Import to hive
 sqoop import --connect jdbc:mysql://<database_dns>:3306/classicmodels --username sqoopuser --password password --table employees --create-hive-table --hive-import --target-dir /user/hdfs/emphive/
 
 sqoop import --connect jdbc:mysql://ip-172-31-26-71.us-west-2.compute.internal:3306/classicmodels --username sqoopuser --password password --table employees --create-hive-table --hive-import --target-dir /user/hdfs/emphive/
 
+conect to hue webUI or beeline 
+
+> showtables;
+> select * from employees;
 
 -----*** Sqoop Export ***-----
 
 ## NOTE : It is mandatory that the table to be exported is created manually and is present in the database from where it has to be exported.
 
 ### Create table in destination database
-
+on MySQl
 mysql -u root -p
+mysql>show databases;
 
 mysql>use classicmodels;
 
+mysql>show tables;
+
 mysql>create table export like employees;
 
-
-
-###
-
+### On Worker node
 sqoop export --connect jdbc:mysql://<database_dns>:3306/classicmodels --username sqoopuser --password password --table export --export-dir /user/hdfs/employees/
 
 
@@ -103,13 +116,4 @@ sqoop export --connect jdbc:mysql://<database_dns>:3306/classicmodels --username
 mysql -u root -p
 
 mysql> select * from export;
-
-
-
-
-
-
-
-
-
-
+Can see exported data in export table
