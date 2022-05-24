@@ -2,6 +2,7 @@
 	  Sqoop
 **************************
 
+Add a new independent node MySQL 
 
 -----*** Install database to import data ***-----
 
@@ -9,7 +10,7 @@ sudo apt-get install mysql-server -y
 
 -----*** Download sample database ***-----
 
-wget http://www.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip
+wget http://www.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip --no-check-certificate
 
 sudo apt install zip
 
@@ -23,29 +24,36 @@ mysql -u root -p
 
 mysql>show databases;
 
+mysql>use classicmodels;
+
+mysql>show tables;
+exit
+
 ### Change bind address of database
 
 cd /etc/mysql/mysql.conf.d/
 
 sudo nano mysqld.cnf
-bind address = <private-ip of db>
+bind address = <private-ip of MySQL>
 
 sudo service mysql restart
 
 
 -----*** Create a user for sqoop ***-----
 
+mysql -u root -p
+
 mysql>create user 'sqoopuser'@'%' identified by 'password';
 
 mysql>grant all privileges on *.* to 'sqoopuser'@'%';
-
+exit
 
 -----*** Sqoop ***-----
 
 
 ### Log in to one of the datanodes
 
-$ sqoop help
+sqoop help
 
 ### Install driver
 
@@ -53,11 +61,11 @@ sudo apt-get install libmysql-java
 
 ### Check connection to database
 
-$ sqoop list-databases --connect jdbc:mysql://<database_dns>:3306/ --username sqoopuser -P
+sqoop list-databases --connect jdbc:mysql://<database_dns>:3306/ --username sqoopuser -P
 
-$ sqoop list-tables --connect jdbc:mysql://<database_dns>:3306/classicmodels --username sqoopuser -P
+sqoop list-tables --connect jdbc:mysql://<database_dns>:3306/classicmodels --username sqoopuser -P
 
-sqoop list-tables --connect jdbc:mysql://ip-172-31-26-71.us-west-2.compute.internal:3306/classicmodels --username sqoopuser -P
+sqoop list-tables --connect jdbc:mysql://ip-172-31-84-71.ec2.internal:3306/classicmodels --username sqoopuser -P
 
 
 -----*** Sqoop Import ***-----
